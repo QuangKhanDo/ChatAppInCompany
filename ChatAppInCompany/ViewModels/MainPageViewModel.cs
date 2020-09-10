@@ -1,4 +1,5 @@
 ﻿using ChatAppInCompany.FirebaseHelper;
+using ChatAppInCompany.Services;
 using ChatAppInCompany.Views;
 using ChatAppInCompany.Views.Popup;
 using Com.OneSignal;
@@ -61,8 +62,8 @@ namespace ChatAppInCompany.ViewModels
             await PopupNavigation.Instance.PushAsync(new LoadingPopup());
             await helper.AddUserToRoomChat(new Models.User() { UserName = this.UserName , Oid = App.MYUID.ToString() });
             App.MYNAME = UserName;
-            OneSignal.Current.SendTag("Room", "9221");
             await helper.GetAllUserInRoomChat();
+            DependencyService.Get<IMessageService>().GetAllUser();
             Application.Current.MainPage.Navigation.PushAsync(new ChatPage());
         }
 

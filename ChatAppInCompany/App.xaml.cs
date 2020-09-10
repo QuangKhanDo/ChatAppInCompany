@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ChatAppInCompany
@@ -30,6 +30,9 @@ namespace ChatAppInCompany
             .HandleNotificationReceived(HandleNotificationReceived)
             .EndInit();
 
+            OneSignal.Current.SendTag("Room", "9221");
+
+
             // The promptForPushNotificationsWithUserResponse function will show the iOS push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission (See step 7)
             OneSignal.Current.RegisterForPushNotifications();
 
@@ -40,33 +43,29 @@ namespace ChatAppInCompany
         {
             OSNotificationPayload payload = notification.payload;
             string message = payload.body;
+            string senderName;
 
-            string guid = message.Substring(0, 37);
+            string guid = message.Substring(0, 36);
 
             if (guid == MYUID.ToString()) return;
+            
+            var sender = UserInRoom.FirstOrDefault(x => x.Oid == guid);
+            
+            if (sender == null)
+                senderName = string.Empty;
+            else
+                senderName = sender.UserName;
 
             ChatModel chatModel = new ChatModel()
             {
                 Oid = Guid.Parse(guid.Trim()),
+                Sender = senderName,
                 ChatMessage = message.Substring(37),
                 Time = DateTime.Now,
                 IsReceived = true
             };
 
             MessagingCenter.Send(chatModel, "ReceiveMessage");
-            //Dictionary<string, object> additionalData = payload.additionalData;
-
-            //if (additionalData != null)
-            //{
-            //    if (additionalData.ContainsKey("screenName"))
-            //    {
-            //        //pushScreenName = Convert.ToString(additionalData["screenName"]);
-            //    }
-            //    else
-            //    {
-            //       // pushScreenName = "";
-            //    }
-            //}
         }
 
         protected override void OnStart()

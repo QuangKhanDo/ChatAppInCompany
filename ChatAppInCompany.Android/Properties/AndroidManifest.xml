@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.PNT.ChatAppInCompany" android:installLocation="auto">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.ourcrew.chatwithanyone" android:installLocation="auto">
 	<uses-sdk android:minSdkVersion="25" android:targetSdkVersion="28" />
 	<permission android:name="com.PNT.ChatAppInCompany.permission.C2D_MESSAGE" android:protectionLevel="signature" />
 	<uses-permission android:name="com.PNT.ChatAppInCompany.permission.C2D_MESSAGE" />
 	<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 	<uses-permission android:name="android.permission.INSTANT_APP_FOREGROUND_SERVICE" />
-	<application android:label="Chat Room">
+	<application android:label="Chat With Anyone" android:icon="@drawable/logo_icon">
 		<receiver android:name="com.onesignal.GcmBroadcastReceiver" android:permission="com.google.android.c2dm.permission.SEND">
 			<intent-filter>
 				<action android:name="com.google.android.c2dm.intent.RECEIVE" />

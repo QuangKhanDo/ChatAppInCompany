@@ -7,5 +7,9 @@ namespace ChatAppInCompany.Services
     public interface IMessageService
     {
         void SendMessage(string Message);
+
+        void GetAllUser();
+
+        void LogoutRoom();
     }
 }

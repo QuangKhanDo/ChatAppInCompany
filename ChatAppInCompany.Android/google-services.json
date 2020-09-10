@@ -8,25 +8,25 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:173772872024:android:722931b73e26f29be4ed2d",
+        "mobilesdk_app_id": "1:173772872024:android:4990163cbc27875ae4ed2d",
         "android_client_info": {
-          "package_name": "com.PNT.ChatAppInCompany"
+          "package_name": "com.ourcrew.chatwithanyone"
         }
       },
       "oauth_client": [
         {
-          "client_id": "173772872024-t42bsf2rc4slgo4has0vm3rv3mjcfbck.apps.googleusercontent.com",
+          "client_id": "173772872024-3l7bkalmdiar51ihponm2vcp1g4s9cqn.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.PNT.ChatAppInCompany",
+            "package_name": "com.ourcrew.chatwithanyone",
             "certificate_hash": "b876891ebdf862a10a133a0e2714fd879c185c81"
           }
         },
         {
-          "client_id": "173772872024-o5sdb7l76cr2d6kcllhkdgcs5orkl8fv.apps.googleusercontent.com",
+          "client_id": "173772872024-sah6mn34g51j641b0r8shs4pei5jo604.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.PNT.ChatAppInCompany",
+            "package_name": "com.ourcrew.chatwithanyone",
             "certificate_hash": "354c592fe46c91b9537a6a15c2025ddc5214f368"
           }
         },

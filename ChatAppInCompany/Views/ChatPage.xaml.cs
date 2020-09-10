@@ -1,4 +1,5 @@
 ﻿using ChatAppInCompany.FirebaseHelper;
+using ChatAppInCompany.Services;
 using ChatAppInCompany.ViewModels;
 using Com.OneSignal;
 using Rg.Plugins.Popup.Services;
@@ -39,8 +40,11 @@ namespace ChatAppInCompany.Views
         protected override bool OnBackButtonPressed()
         {
             OneSignal.Current.DeleteTag("Room");
+            DependencyService.Get<IMessageService>().LogoutRoom();
             MyFirebaseHelper helper = new MyFirebaseHelper();
             helper.RemoveUserFromRoomChat();
+            App.UserInRoom.Clear();
+            
             return base.OnBackButtonPressed();
         }
 

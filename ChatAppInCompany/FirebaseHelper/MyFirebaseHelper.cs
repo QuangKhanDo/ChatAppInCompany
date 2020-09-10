@@ -25,10 +25,10 @@ namespace ChatAppInCompany.FirebaseHelper
         /// <returns></returns>
         public async Task AddUserToRoomChat(User user)
         {
-            await CrossCloudFirestore.Current
-                         .Instance
+            await CrossCloudFirestore.Current.Instance
                          .GetCollection("9221")
-                         .AddDocumentAsync(user);
+                         .GetDocument(App.MYUID.ToString())
+                         .SetDataAsync(user);
         }
 
         /// <summary>
@@ -37,16 +37,17 @@ namespace ChatAppInCompany.FirebaseHelper
         /// <returns></returns>
         public async Task GetAllUserInRoomChat()
         {
-            var allUser = await CrossCloudFirestore.Current
-                                     .Instance
+            var allUser = await CrossCloudFirestore.Current.Instance
                                      .GetCollection("9221")
                                      .GetDocumentsAsync();
             var convertAllUser = allUser.ToObjects<User>();
-
-            foreach (var user in convertAllUser)
-            {
-                App.UserInRoom.Add(user);
-            }
+            App.UserInRoom = convertAllUser.ToList();
+            //foreach (var user in convertAllUser)
+            //{
+            //    var oldUser = App.UserInRoom.FirstOrDefault(x => x.Oid == user.Oid);
+                
+            //    if (oldUser == null) App.UserInRoom.Add(user);
+            //}
         }
         
         /// <summary>
@@ -56,7 +57,10 @@ namespace ChatAppInCompany.FirebaseHelper
         /// <returns></returns>
         public async Task RemoveUserFromRoomChat()
         {
-            
+            await CrossCloudFirestore.Current.Instance
+                                     .GetCollection("9221")
+                                     .GetDocument(App.MYUID.ToString())
+                                     .DeleteDocumentAsync();
         }
         #endregion
     }

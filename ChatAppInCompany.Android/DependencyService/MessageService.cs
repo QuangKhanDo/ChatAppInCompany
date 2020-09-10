@@ -18,6 +18,18 @@ namespace ChatAppInCompany.Android.DependencyService
 {
     public class MessageService : IMessageService
     {
+        public void GetAllUser()
+        {
+            Intent intent = new Intent(Application.Context, typeof(GetUserService));
+            Application.Context.StartService(intent);
+        }
+
+        public void LogoutRoom()
+        {
+            Intent intent = new Intent(Application.Context, typeof(GetUserService));
+            Application.Context.StopService(intent);
+        }
+
         public void SendMessage(string Message)
         {
             Intent intent = new Intent(Application.Context, typeof(SendMessageService));

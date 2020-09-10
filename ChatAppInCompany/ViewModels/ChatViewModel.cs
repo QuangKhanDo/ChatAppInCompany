@@ -21,10 +21,13 @@ namespace ChatAppInCompany.ViewModels
         {
             //Set Property
             ChatMessages = new ObservableCollection<ChatModel>();
+            UserInRoom = App.UserInRoom.Count;
+
 
 
             //Method
             Generate();
+
 
 
 
@@ -36,8 +39,24 @@ namespace ChatAppInCompany.ViewModels
             //Messaging Center
             MessagingCenter.Subscribe<ChatModel>(this, "ReceiveMessage", (Message) =>
             {
-                ChatMessages.Add(Message);
-                MessagingCenter.Send(string.Empty, "NewMessageComing");
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    if (string.IsNullOrEmpty(Message.Sender))
+                    {
+                        await Task.Delay(3000);
+                        var sender = App.UserInRoom.FirstOrDefault(x => x.Oid == Message.Oid.ToString());
+                        if (sender == null)
+                            Message.Sender = "Người gửi không tồn tại";
+                    }
+                    ChatMessages.Add(Message);
+                    MessagingCenter.Send(string.Empty, "NewMessageComing");
+                });
+            });
+
+            MessagingCenter.Subscribe<string>(this, "UpdateUser", (Count) =>
+            {
+                if (int.Parse(Count) != UserInRoom)
+                    UserInRoom = int.Parse(Count);
             });
         }
 
@@ -74,6 +93,18 @@ namespace ChatAppInCompany.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        private int _userInRoom;
+        public int UserInRoom
+        {
+            get { return _userInRoom; }
+            set
+            { 
+                _userInRoom = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         private bool _isExpired;
         public bool IsExpired
@@ -143,10 +174,16 @@ namespace ChatAppInCompany.ViewModels
 
         private async void GetBack()
         {
-            OneSignal.Current.DeleteTag("Room");
-            MyFirebaseHelper helper = new MyFirebaseHelper();
-            helper.RemoveUserFromRoomChat();
-            await Application.Current.MainPage.Navigation.PopAsync();
+            var result = await Application.Current.MainPage.DisplayAlert("Thông báo", "Bạn chắc chắn muốn rời phòng?", "Rời phòng", "Ở lại");
+            if (result)
+            {
+                OneSignal.Current.DeleteTag("Room");
+                DependencyService.Get<IMessageService>().LogoutRoom();
+                MyFirebaseHelper helper = new MyFirebaseHelper();
+                helper.RemoveUserFromRoomChat();
+                App.UserInRoom.Clear();
+                await Application.Current.MainPage.Navigation.PopAsync();
+            }    
         }
         #endregion
 
@@ -166,6 +203,7 @@ namespace ChatAppInCompany.ViewModels
         ~ChatViewModel()
         {
             MessagingCenter.Unsubscribe<ChatModel>(this, "ReceiveMessage");
+            MessagingCenter.Unsubscribe<string>(this, "UpdateUser");
         }
     }
 }

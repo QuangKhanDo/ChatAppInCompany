@@ -23,14 +23,22 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="50"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="50"/>
                 </Grid.ColumnDefinitions>
                 <Image Source="back.png" HeightRequest="32" WidthRequest="32" Aspect="AspectFill"  HorizontalOptions="Start" Margin="15,9,15,5" VerticalOptions="Center">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding BackCommand}"/>
                     </Image.GestureRecognizers>
                 </Image>
-                <Label Grid.Column="1" Text="Phòng Chat" TextColor="White" FontSize="20" HorizontalOptions="Start" VerticalOptions="Center" FontAttributes="Bold"/>
+                <Label Grid.Column="1" Text="Phòng Chat" TextColor="White" FontSize="20" HorizontalOptions="FillAndExpand" VerticalOptions="Center" FontAttributes="Bold">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Phòng Chat "/>
+                            <Span Text=" ("/>
+                            <Span Text="{Binding UserInRoom, StringFormat='{}{(0:#})'}"/>
+                            <Span Text=")"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
             </Grid>
 
             <pancakeview:PancakeView Grid.Row="1" HorizontalOptions="FillAndExpand">
@@ -125,7 +133,7 @@
                                     Margin="0,2,2,5"
                                     WidthRequest="43">
                                             <buttons:SfButton.Content>
-                                                <Image HorizontalOptions="Center" Source="https://imgur.com/JWiDWtH.png" VerticalOptions="Center"/>
+                                                <Image HorizontalOptions="Center" Source="send.png" VerticalOptions="Center"/>
                                             </buttons:SfButton.Content>
                                         </buttons:SfButton>
                                     </Grid>

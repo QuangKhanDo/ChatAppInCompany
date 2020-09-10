@@ -13,7 +13,7 @@ using Firebase;
 
 namespace ChatAppInCompany.Android
 {
-    [Activity(Label = "ChatAppInCompany", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "Chat With Anyone", Icon = "@drawable/logo_icon", Theme = "@style/MainTheme", MainLauncher = false, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle bundle)
@@ -23,7 +23,9 @@ namespace ChatAppInCompany.Android
 
             base.OnCreate(bundle);
 
-           // FirebaseApp.InitializeApp(ApplicationContext);
+            this.Window.AddFlags(WindowManagerFlags.Fullscreen);
+            this.Window.AddFlags(WindowManagerFlags.KeepScreenOn);
+
 
             RequestedOrientation = ScreenOrientation.Portrait;
 
@@ -51,7 +53,6 @@ namespace ChatAppInCompany.Android
                 // Do something if there are not any pages in the `PopupStack`
             }
         }
-
     }
 }
 
