@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms"
+          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+          xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+          xmlns:cards="clr-namespace:Syncfusion.XForms.Cards;assembly=Syncfusion.Cards.XForms" 
+          xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+          mc:Ignorable="d"
+          x:Class="ChatAppInCompany.Views.Template.OutgoingTextTemplate">
+    <ViewCell.View>
+        <pancakeview:PancakeView CornerRadius="10, 0, 10, 10"
+                          Margin="90, 13, 22, 0"
+                          BackgroundColor="#0E81ED"
+                          HasShadow="False"
+                          HorizontalOptions="End">
+            <StackLayout Margin="8" VerticalOptions="FillAndExpand">
+
+                <!--  Message Text  -->
+                <Label FontSize="16"
+                           HorizontalOptions="End"
+                           LineHeight="1.25"
+                           Text="{Binding ChatMessage}"
+                           TextColor="WhiteSmoke"    
+                           VerticalOptions="Center" />
+
+                <!--  Time  -->
+                <Label FontSize="13"
+                           HorizontalOptions="End"
+                           LineHeight="1.25"
+                           Text="{Binding Time, StringFormat='{0:HH:mm }'}"
+                           TextColor="LightGray"
+                           VerticalOptions="Center" />
+            </StackLayout>
+        </pancakeview:PancakeView>
+    </ViewCell.View>
+</ViewCell>

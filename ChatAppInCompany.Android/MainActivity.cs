@@ -6,6 +6,9 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Com.OneSignal;
+using Com.OneSignal.Abstractions;
+using Syncfusion.ListView.XForms;
 
 namespace ChatAppInCompany.Android
 {
@@ -18,6 +21,15 @@ namespace ChatAppInCompany.Android
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(bundle);
+
+
+
+            //Remove this method to stop OneSignal Debugging  
+            OneSignal.Current.SetLogLevel(LOG_LEVEL.VERBOSE, LOG_LEVEL.NONE);
+
+            OneSignal.Current.StartInit("44b0e932-0b17-4b6b-b1d6-5d61f919b8f9").EndInit();
+
+            OneSignal.Current.SetSubscription(true);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
             LoadApplication(new App());
