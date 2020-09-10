@@ -13,10 +13,15 @@ namespace ChatAppInCompany
 {
     public partial class App : Application
     {
+        public static string MYNAME;
+        public static Guid MYUID;
+        public static List<User> UserInRoom = new List<User>();
         public App()
         {
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MjkwMzQzQDMxMzgyZTMyMmUzMFJhZTBwTStibVhxOXVvUlkwQmVXOWdWZFB1US9QS2dlaitmT2xCSkEwbjA9");
             InitializeComponent();
+
+            MYUID = Guid.NewGuid();
 
             OneSignal.Current.SetLogLevel(LOG_LEVEL.VERBOSE, LOG_LEVEL.NONE);
 
@@ -28,10 +33,7 @@ namespace ChatAppInCompany
             // The promptForPushNotificationsWithUserResponse function will show the iOS push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission (See step 7)
             OneSignal.Current.RegisterForPushNotifications();
 
-            OneSignal.Current.SendTag("Room", "9221");
-
-
-            MainPage = new NavigationPage(new ChatPage());
+            MainPage = new NavigationPage(new MainPage());
         }
 
         private static void HandleNotificationReceived(OSNotification notification)
@@ -40,6 +42,8 @@ namespace ChatAppInCompany
             string message = payload.body;
 
             string guid = message.Substring(0, 37);
+
+            if (guid == MYUID.ToString()) return;
 
             ChatModel chatModel = new ChatModel()
             {

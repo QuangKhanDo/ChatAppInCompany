@@ -1,5 +1,7 @@
-﻿using ChatAppInCompany.Models;
+﻿using ChatAppInCompany.FirebaseHelper;
+using ChatAppInCompany.Models;
 using ChatAppInCompany.Services;
+using Com.OneSignal;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -34,8 +36,6 @@ namespace ChatAppInCompany.ViewModels
             //Messaging Center
             MessagingCenter.Subscribe<ChatModel>(this, "ReceiveMessage", (Message) =>
             {
-                var myMessage = ChatMessages.FirstOrDefault(x => x.Oid == Message.Oid);
-                if (myMessage != null) return;
                 ChatMessages.Add(Message);
                 MessagingCenter.Send(string.Empty, "NewMessageComing");
             });
@@ -127,7 +127,7 @@ namespace ChatAppInCompany.ViewModels
                 {
                     ChatModel chatModel = new ChatModel
                     {
-                        Oid = Guid.NewGuid(),
+                        Oid = App.MYUID,
                         ChatMessage = NewMessage,
                         Time = DateTime.Now,
                         IsReceived = false
@@ -143,6 +143,9 @@ namespace ChatAppInCompany.ViewModels
 
         private async void GetBack()
         {
+            OneSignal.Current.DeleteTag("Room");
+            MyFirebaseHelper helper = new MyFirebaseHelper();
+            helper.RemoveUserFromRoomChat();
             await Application.Current.MainPage.Navigation.PopAsync();
         }
         #endregion

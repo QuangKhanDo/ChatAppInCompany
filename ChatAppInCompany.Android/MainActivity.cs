@@ -9,6 +9,7 @@ using Android.OS;
 using Com.OneSignal;
 using Com.OneSignal.Abstractions;
 using Syncfusion.ListView.XForms;
+using Firebase;
 
 namespace ChatAppInCompany.Android
 {
@@ -22,7 +23,11 @@ namespace ChatAppInCompany.Android
 
             base.OnCreate(bundle);
 
+           // FirebaseApp.InitializeApp(ApplicationContext);
 
+            RequestedOrientation = ScreenOrientation.Portrait;
+
+            Rg.Plugins.Popup.Popup.Init(this, bundle);
 
             //Remove this method to stop OneSignal Debugging  
             OneSignal.Current.SetLogLevel(LOG_LEVEL.VERBOSE, LOG_LEVEL.NONE);
@@ -34,6 +39,19 @@ namespace ChatAppInCompany.Android
             global::Xamarin.Forms.Forms.Init(this, bundle);
             LoadApplication(new App());
         }
+
+        public override void OnBackPressed()
+        {
+            if (Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed))
+            {
+                // Do something if there are some pages in the `PopupStack`
+            }
+            else
+            {
+                // Do something if there are not any pages in the `PopupStack`
+            }
+        }
+
     }
 }
 

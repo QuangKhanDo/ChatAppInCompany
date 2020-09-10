@@ -11,8 +11,16 @@ namespace ChatAppInCompany.Models
         private string _chatMessage;
         private DateTime _time;
 
+        /// <summary>
+        /// UserOid
+        /// </summary>
         public Guid Oid { get; set; }
         
+        /// <summary>
+        /// Người gửi
+        /// </summary>
+        public string Sender { get; set; }
+
         /// <summary>
         ///  Nội dung tin nhắn
         /// </summary>

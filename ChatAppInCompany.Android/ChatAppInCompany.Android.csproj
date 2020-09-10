@@ -60,12 +60,13 @@
     <Compile Include="DependencyService\MessageService.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Renderers\BorderlessEditorRenderer.cs" />
+    <Compile Include="Renderers\BorderlessEntryRenderer.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\SendMessageService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="google-services.json" />
+    <GoogleServicesJson Include="google-services.json" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>
@@ -82,6 +83,15 @@
     <PackageReference Include="Com.OneSignal">
       <Version>3.10.1</Version>
     </PackageReference>
+    <PackageReference Include="FirebaseDatabase.net">
+      <Version>4.0.4</Version>
+    </PackageReference>
+    <PackageReference Include="Plugin.CloudFirestore">
+      <Version>3.1.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="Rg.Plugins.Popup">
+      <Version>2.0.0.5</Version>
+    </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.Cards">
       <Version>18.2.0.57</Version>
     </PackageReference>
@@ -92,7 +102,7 @@
       <Version>28.0.0.3</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1364" />
-    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.2.0.44" />
+    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.2.0.57" />
     <PackageReference Include="Xamarin.Forms.PancakeView">
       <Version>2.1.0.714</Version>
     </PackageReference>
@@ -106,6 +116,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\man.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>

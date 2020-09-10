@@ -1,4 +1,7 @@
-﻿using ChatAppInCompany.ViewModels;
+﻿using ChatAppInCompany.FirebaseHelper;
+using ChatAppInCompany.ViewModels;
+using Com.OneSignal;
+using Rg.Plugins.Popup.Services;
 using Syncfusion.ListView.XForms;
 using System;
 using System.Collections.Generic;
@@ -24,6 +27,21 @@ namespace ChatAppInCompany.Views
             });
 
             this.BindingContext = new ChatViewModel();
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            if (PopupNavigation.Instance.PopupStack.Count != 0)
+                await PopupNavigation.Instance.PopAllAsync();
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            OneSignal.Current.DeleteTag("Room");
+            MyFirebaseHelper helper = new MyFirebaseHelper();
+            helper.RemoveUserFromRoomChat();
+            return base.OnBackButtonPressed();
         }
 
         ~ChatPage()

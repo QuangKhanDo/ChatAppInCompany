@@ -19,30 +19,33 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <!--  Rounded Profile Image  -->
-            <avatarview:SfAvatarView ContentType="Custom" ImageSource="https://imgur.com/4bO1gAq.png" CornerRadius="15"
-                                      BorderColor="White" BorderWidth="0.5" VerticalOptions="Start" HeightRequest="30" WidthRequest="30"/>
-            <pancakeview:PancakeView Grid.Column="1" Grid.RowSpan="2" CornerRadius="0, 10, 10, 10"
+            <avatarview:SfAvatarView ContentType="Custom" ImageSource="man.png" CornerRadius="15"
+                                     BorderColor="White" BorderWidth="0.5" VerticalOptions="EndAndExpand" HeightRequest="30" WidthRequest="30"/>
+            <StackLayout Grid.Column="1" Grid.RowSpan="2">
+                <Label Text="{Binding Sender}" TextColor="LightGray" FontSize="15"/>
+                <pancakeview:PancakeView  CornerRadius="0, 10, 10, 10"
                           Margin="0, 0, 90, 0"
                           BackgroundColor="#EEECEC"
                           HasShadow="False"
                           HorizontalOptions="Start">
-                <StackLayout Margin="8" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
-                    <!--  Message Text  -->
-                    <Label FontSize="16"
+                    <StackLayout Margin="8" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                        <!--  Message Text  -->
+                        <Label FontSize="16"
                            HorizontalOptions="Start"
                            LineHeight="1.25"
                            Text="{Binding ChatMessage}"
                            TextColor="#535151"    
                            VerticalOptions="Fill" />
-                    <!--  Time  -->
-                    <Label FontSize="13"
+                        <!--  Time  -->
+                        <Label FontSize="13"
                            HorizontalOptions="End"
                            LineHeight="1.25"
                            Text="{Binding Time, StringFormat='{0:HH:mm }'}"
                            TextColor="#535151" Opacity="0.87"
                            VerticalOptions="Fill" />
-                </StackLayout>
-            </pancakeview:PancakeView>
+                    </StackLayout>
+                </pancakeview:PancakeView>
+            </StackLayout>
         </Grid>
     </ViewCell.View>
 </ViewCell>
