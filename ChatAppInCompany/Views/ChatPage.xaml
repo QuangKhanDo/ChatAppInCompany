@@ -94,7 +94,7 @@
                         <xforms:SfListView.FooterTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <Grid Padding="16,8,16,10" ColumnSpacing="16">
+                                    <Grid Padding="16,8,16,15" ColumnSpacing="16">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
@@ -104,7 +104,7 @@
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
 
-                                        <border:SfBorder Padding="5,0" CornerRadius="30" BackgroundColor="#A9A9A9">
+                                        <border:SfBorder Padding="5,10" CornerRadius="30" BackgroundColor="#A9A9A9">
 
                                             <Grid ColumnSpacing="0">
 
@@ -117,8 +117,8 @@
                                                     <RowDefinition Height="Auto" />
                                                 </Grid.RowDefinitions>
 
-                                                <control:BorderlessEditor Placeholder="Nhập tin nhắn..." Text="{Binding NewMessage}" BackgroundColor="Transparent"
-                                                                      TextColor="Black" PlaceholderColor="Black" FontSize="17" Margin="15,2"/>
+                                                <control:BorderlessEntry Placeholder="Nhập tin nhắn..." Text="{Binding NewMessage}" BackgroundColor="Transparent"
+                                                                      TextColor="Black" PlaceholderColor="Black" FontSize="17" Margin="15,2" VerticalOptions="Center"/>
 
                                             </Grid>
                                         </border:SfBorder>
