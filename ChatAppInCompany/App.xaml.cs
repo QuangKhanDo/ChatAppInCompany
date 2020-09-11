@@ -1,4 +1,6 @@
-﻿using ChatAppInCompany.Models;
+﻿using ChatAppInCompany.FirebaseHelper;
+using ChatAppInCompany.Models;
+using ChatAppInCompany.Services;
 using ChatAppInCompany.Views;
 using Com.OneSignal;
 using Com.OneSignal.Abstractions;
@@ -16,6 +18,8 @@ namespace ChatAppInCompany
         public static string MYNAME;
         public static Guid MYUID;
         public static List<User> UserInRoom = new List<User>();
+        private MyFirebaseHelper helper = new MyFirebaseHelper();
+
         public App()
         {
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MjkwMzQzQDMxMzgyZTMyMmUzMFJhZTBwTStibVhxOXVvUlkwQmVXOWdWZFB1US9QS2dlaitmT2xCSkEwbjA9");
@@ -73,14 +77,22 @@ namespace ChatAppInCompany
             // Handle when your app starts
         }
 
-        protected override void OnSleep()
+        protected override async void OnSleep()
         {
             // Handle when your app sleeps
+            OneSignal.Current.DeleteTag("Room");
+            await helper.RemoveUserFromRoomChat();
+            DependencyService.Get<IMessageService>().LogoutRoom();
         }
 
-        protected override void OnResume()
+        protected override async void OnResume()
         {
             // Handle when your app resumes
+            OneSignal.Current.SendTag("Room", "9221");
+            await helper.AddUserToRoomChat(new Models.User() { UserName = MYNAME, Oid = MYUID.ToString() });
+            await helper.GetAllUserInRoomChat();
+            MessagingCenter.Send(App.UserInRoom.Count.ToString(), "UpdateUser");
+            DependencyService.Get<IMessageService>().GetAllUser();
         }
     }
 }

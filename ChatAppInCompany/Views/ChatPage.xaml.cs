@@ -37,15 +37,31 @@ namespace ChatAppInCompany.Views
                 await PopupNavigation.Instance.PopAllAsync();
         }
 
+        public static Action EmulateBackPressed;
+
+        private bool AcceptBack;
+
         protected override bool OnBackButtonPressed()
         {
-            OneSignal.Current.DeleteTag("Room");
-            DependencyService.Get<IMessageService>().LogoutRoom();
-            MyFirebaseHelper helper = new MyFirebaseHelper();
-            helper.RemoveUserFromRoomChat();
-            App.UserInRoom.Clear();
-            
-            return base.OnBackButtonPressed();
+            if (AcceptBack)
+                return false;
+
+            PromptForExit();
+            return true;
+        }
+
+        private async void PromptForExit()
+        {
+            if (await Application.Current.MainPage.DisplayAlert("Thông báo", "Bạn chắc chắn muốn rời phòng?", "Rời phòng", "Ở lại"))
+            {
+                AcceptBack = true;
+                OneSignal.Current.DeleteTag("Room");
+                DependencyService.Get<IMessageService>().LogoutRoom();
+                MyFirebaseHelper helper = new MyFirebaseHelper();
+                helper.RemoveUserFromRoomChat();
+                App.UserInRoom.Clear();
+                EmulateBackPressed();
+            }
         }
 
         ~ChatPage()

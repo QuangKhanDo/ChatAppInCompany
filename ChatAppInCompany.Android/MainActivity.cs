@@ -40,6 +40,8 @@ namespace ChatAppInCompany.Android
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
             LoadApplication(new App());
+
+            ChatAppInCompany.Views.ChatPage.EmulateBackPressed = OnBackPressed;
         }
 
         public override void OnBackPressed()
